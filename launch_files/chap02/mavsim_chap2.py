@@ -39,7 +39,7 @@ time_per_motion = 3
 end_time = 20
 
 # main simulation loop
-print("Press Esc to exit...")
+print("Press Esc to exit...") 
 
 while sim_time < end_time:
     # -------vary states to check viewer-------------
