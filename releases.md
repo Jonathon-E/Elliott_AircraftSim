@@ -8,4 +8,6 @@ Repository Description: Airplane simulation in Python to support ECE 5353 Spring
 
 Releases:
 
-Release 0.0.1 – Initial commit. Setting up the repository
+Release 0.0.1 – Initial commit. Setting up the repository.
+Release 0.1.1 - Copied Hook's repository onto my own.
+Release 0.1.2 - Finished first version of Project 2.
