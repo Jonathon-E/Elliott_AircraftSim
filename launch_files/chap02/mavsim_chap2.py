@@ -44,17 +44,17 @@ print("Press Esc to exit...")
 while sim_time < end_time:
     # -------vary states to check viewer-------------
     if motions_time < time_per_motion:
-        state.north += 10*SIM.ts_simulation
+        state.north += 15*SIM.ts_simulation
     elif motions_time < time_per_motion*2:
-        state.east += 10*SIM.ts_simulation
+        state.east += 15*SIM.ts_simulation
     elif motions_time < time_per_motion*3:
-        state.altitude += 10*SIM.ts_simulation
+        state.altitude += 15*SIM.ts_simulation
     elif motions_time < time_per_motion*4:
-        state.psi += 0.1*SIM.ts_simulation
+        state.psi += 0.3*SIM.ts_simulation
     elif motions_time < time_per_motion*5:
-        state.theta += 0.1*SIM.ts_simulation
+        state.theta += 0.3*SIM.ts_simulation
     else:
-        state.phi += 0.1*SIM.ts_simulation
+        state.phi += 0.3*SIM.ts_simulation
     # -------update viewer and video-------------
     mav_view.update(state)
     mav_view.process_app()

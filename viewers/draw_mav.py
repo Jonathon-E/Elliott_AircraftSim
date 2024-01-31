@@ -85,22 +85,22 @@ class DrawMav:
         # points are in XYZ coordinates
         #   define the points on the Mav according to Appendix C.3
         points = self.unit_length * np.array([
-            [.6, 0, .1],  # point 1 [0]
-            [.3, .2, -.3],  # point 2 [1]
-            [.3, -.2, -.3],  # point 3 [2]
-            [.3, -.2, .3],  # point 4 [3]
-            [.3, .2, .3],  # point 5 [4]
-            [-1.8, 0, 0],  # point 6 [5]
-            [0, 1, 0],  # point 7 [6]
-            [-.7, 1, 0],  # point 8 [7]
-            [-.7, -1, 0],  # point 9 [8]
-            [0, -1, 0],  # point 10 [9]
-            [-1.3, .5, 0],  # point 11 [10]
-            [-1.8, .5, 0],  # point 12 [11]
-            [-1.8, -.5, 0],  # point 13 [12]
-            [-1.3, -.5, 0],  # point 14 [13]
-            [-1.3, 0, 0],  # point 15 [14]
-            [-1.8, 0, -.8]  # point 16 [15]
+            [1.6, 0, .16],  # point 1 [0]
+            [.89, .51, -.6],  # point 2 [1]
+            [.89, -.51, -.6],  # point 3 [2]
+            [.89, -.51, .6],  # point 4 [3]
+            [.89, .51, .6],  # point 5 [4]
+            [-3.57, 0, 0],  # point 6 [5]
+            [0, 2.42, 0],  # point 7 [6]
+            [-1, 2.42, 0],  # point 8 [7]
+            [-1, -2.42, 0],  # point 9 [8]
+            [0, -2.42, 0],  # point 10 [9]
+            [-2.71, 1.24, 0],  # point 11 [10]
+            [-3.57, 1.24, 0],  # point 12 [11]
+            [-3.57, -1.24, 0],  # point 13 [12]
+            [-2.71, -1.24, 0],  # point 14 [13]
+            [-2.71, 0, 0],  # point 15 [14]
+            [-3.57, 0, -1.48]  # point 16 [15]
             ]).T
         # point index that defines the mesh
         index = np.array([
