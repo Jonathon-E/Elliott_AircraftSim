@@ -35,10 +35,10 @@ state = MsgState()
 # initialize the simulation time
 sim_time = SIM.start_time
 motions_time = 0
-time_per_motion = 3
+time_per_motion = 2.5
 end_time = 20
 
-# main simulation loop
+# main simulation loops
 print("Press Esc to exit...") 
 
 while sim_time < end_time:
