@@ -133,9 +133,6 @@ class MavDynamics:
         p_dot = MAV.gamma1*p*q-MAV.gamma2*q*r+MAV.gamma3*l+MAV.gamma4*n
         q_dot = MAV.gamma5*p*r-MAV.gamma6*(p**2-r**2)+(1/MAV.Jy)*m
         r_dot = MAV.gamma7*p*q-MAV.gamma1*q*r+MAV.gamma4*l+MAV.gamma8*n
-        # p_dot = 0
-        # q_dot = 0
-        # r_dot = 0
 
         # collect the derivative of the states
         x_dot = np.array([[north_dot, east_dot, down_dot, u_dot, v_dot, w_dot, e0_dot, e1_dot, e2_dot, e3_dot, p_dot, q_dot, r_dot]]).T
