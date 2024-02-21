@@ -11,6 +11,7 @@ import os, sys
 # insert parent directory at beginning of python search path
 from pathlib import Path
 sys.path.insert(0,os.fspath(Path(__file__).parents[2]))
+import keyboard
 # use QuitListener for Linux or PC <- doesn't work on Mac
 #from python_tools.quit_listener import QuitListener
 import pyqtgraph as pg
@@ -27,6 +28,28 @@ VIDEO = False
 PLOTS = True
 ANIMATION = True
 SAVE_PLOT_IMAGE = False
+
+
+        # if event.type() == Qt.QEvent.KeyPress:
+        #     key = event.key()
+        #     if key == Qt.Key_S:
+        #         delta.elevator -= 0.01
+        #     elif key == Qt.Key_W:
+        #         delta.elevator += 0.01
+        #     elif key == Qt.Key_A:
+        #         delta.rudder -= 0.01
+        #     elif key == Qt.Key_D:
+        #         delta.rudder += 0.01
+        #     elif key == Qt.Key_Q:
+        #         delta.elevator -= 0.01
+        #     elif key == Qt.Key_E:
+        #         delta.elevator += 0.01
+        #     elif key == Qt.Key_R:
+        #         delta.throttle += 0.01
+        #     elif key == Qt.Key_F:
+        #         delta.throttle -= 0.01
+
+
 
 if VIDEO is True:
     from viewers.video_writer import VideoWriter
@@ -58,11 +81,39 @@ end_time = 60
 print("Press 'Esc' to exit...")
 while sim_time < end_time:
     # ------- set control surfaces -------------
-    delta.elevator = -0.1248
-    delta.aileron = 0.001836
-    delta.rudder = -0.0003026
-    delta.throttle = 0.6768
+    # delta.elevator = -0.1248
+    # delta.aileron = 0.001836
+    # delta.rudder = -0.0003026
+    # delta.throrttle = 0.6768
+    
+    
+    if keyboard.is_pressed('w'):
+            delta.elevator -= 0.001
+    elif keyboard.is_pressed('s'):
+            delta.elevator += 0.001
+    if keyboard.is_pressed('a'):
+            delta.aileron -= 0.001
+    elif keyboard.is_pressed('d'):
+            delta.aileron += 0.001
+    if keyboard.is_pressed('q'):
+            delta.rudder -= 0.001
+    elif keyboard.is_pressed('e'):
+            delta.rudder += 0.001
+    if keyboard.is_pressed('r'):
+            delta.throttle += 0.001
+    elif keyboard.is_pressed('f'):
+            delta.throttle -= 0.001
+    if keyboard.is_pressed('z'):
+            delta.elevator = -0.1248
+            delta.aileron = 0.001836
+            delta.rudder = -0.0003026
+            delta.throrttle = 0.6768
+    if keyboard.is_pressed('esc'):
+        break
+    
+    
 
+    
     # ------- physical system -------------
     current_wind = wind.update()  # get the new wind vector
     mav.update(delta, current_wind)  # propagate the MAV dynamics
