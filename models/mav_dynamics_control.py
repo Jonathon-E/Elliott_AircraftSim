@@ -78,9 +78,9 @@ class MavDynamics(MavDynamicsForces):
         ##### TODO ######
         # extract states (phi, theta, psi, p, q, r)
         phi, theta, psi = quaternion_to_euler(self._state[6:10])
-        p = self._state.item(9)
-        q = self._state.item(10)
-        r = self._state.item(11)
+        p = self._state.item(10)
+        q = self._state.item(11)
+        r = self._state.item(12)
         # compute gravitational forces ([fg_x, fg_y, fg_z])
         fg_b  = euler_to_rotation(phi,theta,psi).T @ [0, 0, MAV.mass*MAV.gravity]
         
@@ -91,8 +91,8 @@ class MavDynamics(MavDynamicsForces):
         CD = MAV.C_D_p + (MAV.C_L_0 + MAV.C_L_alpha*self._alpha)**2/(np.pi*MAV.e * MAV.AR)
         
         q_bar = .5 * MAV.rho * self._Va**2
-        F_lift = q_bar * MAV.S_wing * (CL + (MAV.C_L_q * MAV.c * self.true_state.q)/(2*self._Va) + MAV.C_L_delta_e * delta.elevator)
-        F_drag = q_bar * MAV.S_wing * (CD + (MAV.C_D_q * MAV.c * self.true_state.q)/(2*self._Va) + MAV.C_D_delta_e * delta.elevator)
+        F_lift = q_bar * MAV.S_wing * (CL + (MAV.C_L_q * MAV.c * q)/(2*self._Va) + MAV.C_L_delta_e * delta.elevator)
+        F_drag = q_bar * MAV.S_wing * (CD + (MAV.C_D_q * MAV.c * q)/(2*self._Va) + MAV.C_D_delta_e * delta.elevator)
         
         # propeller thrust and torque
         thrust_prop, torque_prop = self._motor_thrust_torque(self._Va, delta.throttle)
@@ -106,13 +106,13 @@ class MavDynamics(MavDynamicsForces):
 
 
 
-        fx = fg_b[0] + q_bar * MAV.S_wing * (C_X + (C_X_q*MAV.c*self.true_state.q)/(2*self._Va) + C_X_delta_e*delta.elevator) + thrust_prop
-        fz = fg_b[2] + q_bar * MAV.S_wing * (C_Z + (C_Z_q*MAV.c*self.true_state.q)/(2*self._Va) + C_Z_delta_e*delta.elevator)
-        fy = fg_b[1] + q_bar * MAV.S_wing * (MAV.C_Y_0 + MAV.C_Y_beta*self._beta + (MAV.C_Y_p*MAV.b*self.true_state.p)/(2*self._Va) + (MAV.C_Y_r*MAV.b*self.true_state.r)/(2*self._Va) + MAV.C_Y_delta_a*delta.aileron + MAV.C_Y_delta_r*delta.rudder)
+        fx = fg_b[0] + q_bar * MAV.S_wing * (C_X + (C_X_q*MAV.c*q)/(2*self._Va) + C_X_delta_e*delta.elevator) + thrust_prop
+        fz = fg_b[2] + q_bar * MAV.S_wing * (C_Z + (C_Z_q*MAV.c*q)/(2*self._Va) + C_Z_delta_e*delta.elevator)
+        fy = fg_b[1] + q_bar * MAV.S_wing * (MAV.C_Y_0 + MAV.C_Y_beta*self._beta + (MAV.C_Y_p*MAV.b*p)/(2*self._Va) + (MAV.C_Y_r*MAV.b*r)/(2*self._Va) + MAV.C_Y_delta_a*delta.aileron + MAV.C_Y_delta_r*delta.rudder)
 
-        Mx = q_bar * MAV.S_wing * MAV.b * (MAV.C_ell_0 + MAV.C_ell_beta * self._beta + (MAV.C_ell_p*MAV.b*self.true_state.p)/(2*self._Va)+(MAV.C_ell_r*MAV.b*self.true_state.r)/(2*self._Va) + MAV.C_ell_delta_a*delta.aileron + MAV.C_ell_delta_r*delta.rudder) + torque_prop
-        Mz = q_bar * MAV.S_wing * MAV.b * (MAV.C_n_0 + MAV.C_n_beta * self._beta + (MAV.C_n_p*MAV.b*self.true_state.p)/(2*self._Va)+(MAV.C_n_r*MAV.b*self.true_state.r)/(2*self._Va) + MAV.C_n_delta_a*delta.aileron + MAV.C_n_delta_r*delta.rudder)
-        My = q_bar * MAV.S_wing * MAV.c * (MAV.C_m_0 + MAV.C_m_alpha * self._alpha + (MAV.C_m_q*MAV.c*self.true_state.q)/(2*self._Va) + MAV.C_m_delta_e*delta.elevator)
+        Mx = q_bar * MAV.S_wing * MAV.b * (MAV.C_ell_0 + MAV.C_ell_beta * self._beta + (MAV.C_ell_p*MAV.b*p)/(2*self._Va)+(MAV.C_ell_r*MAV.b*r)/(2*self._Va) + MAV.C_ell_delta_a*delta.aileron + MAV.C_ell_delta_r*delta.rudder) + torque_prop
+        Mz = q_bar * MAV.S_wing * MAV.b * (MAV.C_n_0 + MAV.C_n_beta * self._beta + (MAV.C_n_p*MAV.b*p)/(2*self._Va)+(MAV.C_n_r*MAV.b*r)/(2*self._Va) + MAV.C_n_delta_a*delta.aileron + MAV.C_n_delta_r*delta.rudder)
+        My = q_bar * MAV.S_wing * MAV.c * (MAV.C_m_0 + MAV.C_m_alpha * self._alpha + (MAV.C_m_q*MAV.c*q)/(2*self._Va) + MAV.C_m_delta_e*delta.elevator)
 
 
         forces_moments = np.array([[fx, fy, fz, Mx, My, Mz]]).T
