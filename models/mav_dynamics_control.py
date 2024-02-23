@@ -91,8 +91,8 @@ class MavDynamics(MavDynamicsForces):
         CD = MAV.C_D_p + (MAV.C_L_0 + MAV.C_L_alpha*self._alpha)**2/(np.pi*MAV.e * MAV.AR)
         
         q_bar = .5 * MAV.rho * self._Va**2
-        F_lift = q_bar * MAV.S_wing * (CL + (MAV.C_L_q * MAV.c * q)/(2*self._Va) + MAV.C_L_delta_e * delta.elevator)
-        F_drag = q_bar * MAV.S_wing * (CD + (MAV.C_D_q * MAV.c * q)/(2*self._Va) + MAV.C_D_delta_e * delta.elevator)
+        F_lift = q_bar * MAV.S_wing * (CL + (MAV.C_L_alpha*self._alpha)+(MAV.C_L_q * MAV.c * q)/(2*self._Va) + MAV.C_L_delta_e * delta.elevator)
+        F_drag = q_bar * MAV.S_wing * (CD + (MAV.C_D_alpha*self._alpha) + (MAV.C_D_q * MAV.c * q)/(2*self._Va) + MAV.C_D_delta_e * delta.elevator)
         
         # propeller thrust and torque
         thrust_prop, torque_prop = self._motor_thrust_torque(self._Va, delta.throttle)
