@@ -96,18 +96,18 @@ while sim_time < end_time:
     elif keyboard.is_pressed('d'):
             delta.aileron += 0.001
     if keyboard.is_pressed('q'):
-            delta.rudder -= 0.001
+            delta.rudder -= 0.0001
     elif keyboard.is_pressed('e'):
-            delta.rudder += 0.001
+            delta.rudder += 0.0001
     if keyboard.is_pressed('r'):
             delta.throttle += 0.001
     elif keyboard.is_pressed('f'):
             delta.throttle -= 0.001
     if keyboard.is_pressed('z'):
             delta.elevator = -0.1248
-            delta.aileron = 0.001836
-            delta.rudder = -0.0003026
-            delta.throrttle = 0.6768
+            delta.aileron = 0 #0.001836
+            delta.rudder = 0 #-0.0003026
+            delta.throrttle =0.6768
     if keyboard.is_pressed('esc'):
         break
     
