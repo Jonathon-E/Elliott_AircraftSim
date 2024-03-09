@@ -25,7 +25,7 @@ class MavDynamics(MavDynamicsForces):
         self._wind = np.array([[0.], [0.], [0.]])  # wind in NED frame in meters/sec
         # store forces to avoid recalculation in the sensors function
         self._forces = np.array([[0.], [0.], [0.]])
-        self.intialize_velocity(MAV.u0, 0, 0)
+        self.intialize_velocity(MAV.u0, 0., 0.)
         
     def intialize_velocity(self, Va, alpha, beta):
         self._Va = Va
