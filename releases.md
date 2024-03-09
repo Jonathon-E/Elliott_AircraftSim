@@ -15,3 +15,4 @@ Release 0.1.3 - Finished second version of Project 2. 10/10!  Good
 Release 0.1.4 - Finished first version of Project 3.. 10/10!  Nice job
 Release 0.1.5 - Finished first version of Project 4.. 12/12 Nice work.
 Release 0.1.6 - Editted Project 4 based on what we did in class
+Release 0.1.7 - Finished first version of Project 5
