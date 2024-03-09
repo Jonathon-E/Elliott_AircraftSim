@@ -21,6 +21,7 @@ from models.wind_simulation import WindSimulation
 from viewers.mav_viewer import MavViewer
 from viewers.data_viewer import DataViewer
 from message_types.msg_delta import MsgDelta
+from mystuff.trim import compute_trim
 
 #quitter = QuitListener()
 
@@ -28,26 +29,6 @@ VIDEO = False
 PLOTS = True
 ANIMATION = True
 SAVE_PLOT_IMAGE = False
-
-
-        # if event.type() == Qt.QEvent.KeyPress:
-        #     key = event.key()
-        #     if key == Qt.Key_S:
-        #         delta.elevator -= 0.01
-        #     elif key == Qt.Key_W:
-        #         delta.elevator += 0.01
-        #     elif key == Qt.Key_A:
-        #         delta.rudder -= 0.01
-        #     elif key == Qt.Key_D:
-        #         delta.rudder += 0.01
-        #     elif key == Qt.Key_Q:
-        #         delta.elevator -= 0.01
-        #     elif key == Qt.Key_E:
-        #         delta.elevator += 0.01
-        #     elif key == Qt.Key_R:
-        #         delta.throttle += 0.01
-        #     elif key == Qt.Key_F:
-        #         delta.throttle -= 0.01
 
 
 
@@ -72,10 +53,25 @@ wind = WindSimulation(SIM.ts_simulation)
 mav = MavDynamics(SIM.ts_simulation)
 delta = MsgDelta()
 
+Va0 = 30.
+alpha0 = 0.
+beta0 = 0.
+mav.intialize_velocity(Va0, alpha0, beta0)
+
 # initialize the simulation time
 sim_time = SIM.start_time
 plot_time = sim_time
 end_time = 100
+delta.elevator = -0.1248
+delta.aileron = 0.0
+delta.rudder = 0.0
+delta.throttle = 0.6768
+
+alpha, elevator, throttle = compute_trim(mav, delta)
+mav.intialize_velocity(Va0, alpha, beta0)
+delta.elevator = elevator
+delta.throttle = throttle
+print(delta.elevator, delta.throttle)
 
 # main simulation loop
 print("Press 'Esc' to exit...")
