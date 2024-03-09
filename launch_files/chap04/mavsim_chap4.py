@@ -53,7 +53,7 @@ wind = WindSimulation(SIM.ts_simulation)
 mav = MavDynamics(SIM.ts_simulation)
 delta = MsgDelta()
 
-Va0 = 30.
+Va0 = 20.
 alpha0 = 0.
 beta0 = 0.
 mav.intialize_velocity(Va0, alpha0, beta0)
@@ -64,13 +64,14 @@ plot_time = sim_time
 end_time = 100
 delta.elevator = -0.1248
 delta.aileron = 0.0
-delta.rudder = 0.0
+delta.rudder = -0.0
 delta.throttle = 0.6768
 
 alpha, elevator, throttle = compute_trim(mav, delta)
 mav.intialize_velocity(Va0, alpha, beta0)
 delta.elevator = elevator
 delta.throttle = throttle
+
 print(delta.elevator, delta.throttle)
 
 # main simulation loop
