@@ -35,9 +35,9 @@ class MavDynamics(MavDynamicsForces):
         self._state[4]= Va*np.sin(beta)
         self._state[5]= Va*np.sin(alpha)*np.cos(beta)
         
-        # self._Va = MAV.u0
-        # self._alpha = 0
-        # self._beta = 0
+        self._Va = MAV.u0
+        self._alpha = 0
+        self._beta = 0
         # update velocity data and forces and moments
         self._update_velocity_data()
         self._forces_moments(delta=MsgDelta())
