@@ -53,7 +53,7 @@ wind = WindSimulation(SIM.ts_simulation)
 mav = MavDynamics(SIM.ts_simulation)
 delta = MsgDelta()
 
-Va0 = 20.
+Va0 = 35.
 alpha0 = 0.
 beta0 = 0.
 mav.intialize_velocity(Va0, alpha0, beta0)
