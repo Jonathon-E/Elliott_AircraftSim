@@ -14,7 +14,7 @@ from models.mav_dynamics import MavDynamics as MavDynamicsForces
 from message_types.msg_state import MsgState
 from message_types.msg_delta import MsgDelta
 import parameters.aerosonde_parameters as MAV
-from tools.rotations import quaternion_to_rotation, quaternion_to_euler, euler_to_rotation
+from tools.rotations import quaternion_to_rotation, quaternion_to_euler, euler_to_rotation, euler_to_quaternion
 
 
 
@@ -43,6 +43,9 @@ class MavDynamics(MavDynamicsForces):
 
     def calculate_trim_output(self, x):
         alpha, elevator, throttle = x
+        phi, theta, psi = quaternion_to_euler(self._state[6:10])
+        self._state[6:10] = euler_to_quaternion(phi, alpha, psi)
+        
         self.intialize_velocity(self._Va, alpha, self._beta)
         delta=MsgDelta()
         delta.elevator = elevator

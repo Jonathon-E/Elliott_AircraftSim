@@ -53,7 +53,7 @@ wind = WindSimulation(SIM.ts_simulation)
 mav = MavDynamics(SIM.ts_simulation)
 delta = MsgDelta()
 
-Va0 = 35.
+Va0 = 25.
 alpha0 = 0.
 beta0 = 0.
 mav.intialize_velocity(Va0, alpha0, beta0)
@@ -81,7 +81,12 @@ while sim_time < end_time:
     # delta.elevator = -0.1248
     # delta.aileron = 0.001836
     # delta.rudder = -0.0003026
-    # delta.throrttle = 0.6768
+    # delta.throrttle = 0.
+    
+    if abs(sim_time-3.)< .01:
+        delta.elevator += .1
+    else:
+        delta.elevator = elevator
     
     
     if keyboard.is_pressed('w'):
