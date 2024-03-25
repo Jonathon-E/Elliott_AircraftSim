@@ -83,10 +83,10 @@ while sim_time < end_time:
     # delta.rudder = -0.0003026
     # delta.throrttle = 0.
     
-    # if abs(sim_time-3.)< .01:
-    #     delta.elevator += .1
-    # else:
-    #     delta.elevator = elevator
+    if abs(sim_time-3.)< .01:
+        delta.elevator += .1
+    else:
+        delta.elevator = elevator
     
     
     if keyboard.is_pressed('w'):
